@@ -13,6 +13,7 @@
 #define _XTAL_FREQ 20000000
 #include <xc.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
 #pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON, LVP = OFF, CPD = OFF, WRT = OFF, CP = OFF  
@@ -41,8 +42,7 @@ void main(void){
     //Initialization of pins and variables
     button_pinDIR = 1;
     uint16_t mins = 0, secs = 0, msecs = 0;
-    TRISB1 = 0;
-    RB1 = 0;
+    bool run = false;
     
     //initialization of UART
     tx_pinDIR = 0;
@@ -54,13 +54,17 @@ void main(void){
     TXIF=0;
     
     //initialization of timer1
-    /*TMR1IE = 1;
-    T1CON = 0x01;           //timer1 on, internal clock, 1:1 prescaler
-    TMR1H = 0xEC;
-    TMR1L = 0x78;*/
+    TMR1IE = 1;
+    T1CON = 0x01;           //Timer1 on, internal clock, 1:1 prescaler
+    TMR1H = 0x3C;           //TMR1 = 15536
+    TMR1L = 0xB0;           //65536 - 15536 = 50000
     
     while(1){
-        __delay_ms(10);
+        while(!TMR1IF);
+        TMR1IF = 0;
+        TMR1H = 0x3C;
+        TMR1L = 0xB0;
+        updateTimer(mins, secs, msecs);
         if(msecs == 99){
             msecs = 0;
             if(secs == 59){
@@ -74,13 +78,11 @@ void main(void){
             }
             else{
                 secs++;
-                RB1 = !RB1;
             }
         }
         else{
             msecs++;
         }
-        updateTimer(mins, secs, msecs);
     }
     return;
 }
