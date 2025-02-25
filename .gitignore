@@ -1,0 +1,22 @@
+# Directories
+
+_build/*
+.vscode/*
+cmake/*
+build/*
+nbproject/*
+dist/default/debug/*
+Simulation/*
+
+# Files
+
+Makefile
+*.code-workspace
+**/[Tt]est.*
+
+# Exceptions
+
+!Simulation/*.pdsprj
+!Simulation/*.mp4
+!**/*.cof
+!**/*.hex
