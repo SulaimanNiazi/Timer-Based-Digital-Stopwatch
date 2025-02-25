@@ -6,6 +6,7 @@ cmake/*
 build/*
 nbproject/*
 dist/default/debug/*
+dist/default/production
 Proteus Simulation/*
 
 

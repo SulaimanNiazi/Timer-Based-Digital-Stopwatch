@@ -5,10 +5,10 @@
  * Created on February 25, 2025, 3:38 PM
  */
 
-#define tx_pin          PORTCbits.RC6
-#define tx_pinDIR       TRISCbits.TRISC6
-#define button_pin      PORTBbits.RB0
-#define button_pinDIR   TRISBbits.TRISB0
+#define tx_pin          PORTAbits.RA0
+#define tx_pinDIR       TRISAbits.TRISA0
+#define button_pin      PORTAbits.RA5
+#define button_pinDIR   TRISAbits.TRISA5
 
 #define _XTAL_FREQ 20000000
 #include <xc.h>
@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON, LVP = OFF, CPD = OFF, WRT = OFF, CP = OFF  
+#pragma config WDTE = OFF, PWRTE = ON, BOREN = ON, LVP = OFF, WRT = OFF, CP = OFF  
 
 void tx(unsigned char value){
     TXREG = value;
@@ -48,6 +48,7 @@ void timer1init(){
 
 void main(void){
     //Initialization of pins and variables
+    TXCKSEL = 0; //TX pin is RA0
     button_pinDIR = 1;
     uint16_t mins = 0, secs = 0, msecs = 0;
     bool running = false;
@@ -70,8 +71,8 @@ void main(void){
             if(button_pin){
                 while(button_pin);
                 running = !running;
-                if(T1CONbits.TMR1ON){
-                    T1CONbits.TMR1ON = 0;
+                if(TMR1ON){
+                    TMR1ON = 0;
                 }
                 else{
                     mins = secs = msecs = 0;
