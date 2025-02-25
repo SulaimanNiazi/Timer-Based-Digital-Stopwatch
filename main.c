@@ -8,11 +8,19 @@
 #define _XTAL_FREQ 20000000
 
 #include <xc.h>
+#include<string.h>
 
 void tx(unsigned char value){
     TXREG = value;
     while(!TXIF);
     TXIF = 0;
+}
+
+void txstr(char line[]){
+    uint16_t length = (uint16_t)strlen(line);
+    for(uint16_t x = 0; x < length; x++){
+        tx((uint8_t)line[x]);
+    }
 }
 
 void main(void){
@@ -25,9 +33,9 @@ void main(void){
     SPBRG = 0x81;
     TXIE = 1;
     TXIF=0;
+    txstr("Sulaiman");
+    tx(0x0D);
     while(1){
-        tx('S');
-        tx('N');
     }
     return;
 }
