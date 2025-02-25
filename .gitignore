@@ -6,7 +6,8 @@ cmake/*
 build/*
 nbproject/*
 dist/default/debug/*
-Simulation/*
+Proteus Simulation/*
+
 
 # Files
 
@@ -16,7 +17,7 @@ Makefile
 
 # Exceptions
 
-!Simulation/*.pdsprj
-!Simulation/*.mp4
+!Proteus Simulation/*.pdsprj
+!Proteus Simulation/*.mp4
 !**/*.cof
 !**/*.hex
