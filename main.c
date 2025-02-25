@@ -38,11 +38,19 @@ void updateTimer(uint16_t mins, uint16_t secs, uint16_t msecs){
     txstr(line);
 }
 
+void timer1init(){
+    TMR1IE = 1;
+    TMR1IF = 0;
+    T1CON = 0x01;           //Timer1 on, internal clock, 1:1 pre-scaler
+    TMR1H = 0x3C;           //TMR1 = 15536
+    TMR1L = 0xB0;           //65536 - 15536 = 50000
+}
+
 void main(void){
     //Initialization of pins and variables
     button_pinDIR = 1;
     uint16_t mins = 0, secs = 0, msecs = 0;
-    bool run = false;
+    bool running = false;
     
     //initialization of UART
     tx_pinDIR = 0;
@@ -54,34 +62,45 @@ void main(void){
     TXIF=0;
     
     //initialization of timer1
-    TMR1IE = 1;
-    T1CON = 0x01;           //Timer1 on, internal clock, 1:1 prescaler
-    TMR1H = 0x3C;           //TMR1 = 15536
-    TMR1L = 0xB0;           //65536 - 15536 = 50000
+    updateTimer(mins, secs, msecs);
     
     while(1){
-        while(!TMR1IF);
-        TMR1IF = 0;
-        TMR1H = 0x3C;
-        TMR1L = 0xB0;
-        updateTimer(mins, secs, msecs);
-        if(msecs == 99){
-            msecs = 0;
-            if(secs == 59){
-                secs = 0;
-                if(mins == 59){
-                    mins = 0;
+        if(button_pin){
+            __delay_ms(10);
+            if(button_pin){
+                while(button_pin);
+                running = !running;
+                if(T1CONbits.TMR1ON){
+                    T1CONbits.TMR1ON = 0;
                 }
                 else{
-                    mins++;
+                    mins = secs = msecs = 0;
+                    timer1init();
+                }
+            }
+        }
+        if(running){
+            while(!TMR1IF);
+            timer1init();
+            updateTimer(mins, secs, msecs);
+            if(msecs == 99){
+                msecs = 0;
+                if(secs == 59){
+                    secs = 0;
+                    if(mins == 59){
+                        mins = 0;
+                    }
+                    else{
+                        mins++;
+                    }
+                }
+                else{
+                    secs++;
                 }
             }
             else{
-                secs++;
+                msecs++;
             }
-        }
-        else{
-            msecs++;
         }
     }
     return;
