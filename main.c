@@ -24,18 +24,11 @@ void tx(unsigned char value){
     TXIF = 0;
 }
 
-void txstr(char line[]){
-    uint16_t length = (uint16_t)strlen(line);
+void txstr(char string[]){
+    uint16_t length = (uint16_t)strlen(string);
     for(uint16_t x = 0; x < length; x++){
-        tx((uint8_t)line[x]);
+        tx((uint8_t)string[x]);
     }
-}
-
-void updateTimer(uint16_t mins, uint16_t secs, uint16_t msecs){
-    char line[20];
-    sprintf(line, "%d:%d:%d", mins, secs, msecs);
-    tx(0x0C);               //clear screen
-    txstr(line);
 }
 
 void timer1init(){
@@ -51,6 +44,7 @@ void main(void){
     TXCKSEL = 0; //TX pin is RA0
     button_pinDIR = 1;
     uint16_t mins = 0, secs = 0, msecs = 0;
+    char line[20] = "00:00:00";
     bool running = false;
     
     //initialization of UART
@@ -61,9 +55,6 @@ void main(void){
     SPBRG = 0x81;           //SPBRG = 130 for Baud rate of 9600 using Fosc = 20MHz
     TXIE = 1;
     TXIF=0;
-    
-    //initialization of timer1
-    updateTimer(mins, secs, msecs);
     
     while(1){
         if(button_pin){
@@ -83,7 +74,14 @@ void main(void){
         if(running){
             while(!TMR1IF);
             timer1init();
-            updateTimer(mins, secs, msecs);
+            sprintf(line, "%2d:%2d:%2d", mins, secs, msecs);
+            for(int x = 0; x < 7; x++){
+                if(line[x]==' '){
+                    line[x]='0';
+                }
+            }
+            tx(0x0C);               //clear screen
+            txstr(line);
             if(msecs == 99){
                 msecs = 0;
                 if(secs == 59){
