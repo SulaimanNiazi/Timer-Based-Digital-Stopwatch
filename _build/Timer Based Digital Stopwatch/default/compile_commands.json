@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/mehna/Documents/MPlab projects/Timer Based Digital Stopwatch.X/_build/Timer Based Digital Stopwatch/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__12F1572__ -I\"C:\\Users\\mehna\\Documents\\MPlab projects\\Timer Based Digital Stopwatch.X\\cmake\\Timer Based Digital Stopwatch\\default\\..\\..\\..\" -c -mcpu=12F1572 -mdfp=C:/Users/mehna/.mchp_packs/Microchip/PIC12-16F1xxx_DFP/1.7.242/xc8 -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -moscval=0x3400 -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mno-default-config-bits -std=c99 -gcoff -mstack=compiled:auto:auto:auto -o CMakeFiles\\Timer_Based_Digital_Stopwatch_default_default_XC8_compile.dir\\33707ac839f8f7fd3074f5562222a450\\main.c.p1 -c \"C:\\Users\\mehna\\Documents\\MPlab projects\\Timer Based Digital Stopwatch.X\\main.c\"",
+  "file": "C:\\Users\\mehna\\Documents\\MPlab projects\\Timer Based Digital Stopwatch.X\\main.c",
+  "output": "CMakeFiles\\Timer_Based_Digital_Stopwatch_default_default_XC8_compile.dir\\33707ac839f8f7fd3074f5562222a450\\main.c.p1"
+}
+]

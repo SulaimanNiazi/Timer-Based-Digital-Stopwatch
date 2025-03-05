@@ -1,0 +1,4 @@
+C:/Users/mehna/Documents/MPlab projects/Timer Based Digital Stopwatch.X/_build/Timer Based Digital Stopwatch/default/CMakeFiles/Timer_Based_Digital_Stopwatch_default_default_XC8_compile.dir
+C:/Users/mehna/Documents/MPlab projects/Timer Based Digital Stopwatch.X/_build/Timer Based Digital Stopwatch/default/CMakeFiles/Timer_Based_Digital_Stopwatch_default_default.hex.dir
+C:/Users/mehna/Documents/MPlab projects/Timer Based Digital Stopwatch.X/_build/Timer Based Digital Stopwatch/default/CMakeFiles/edit_cache.dir
+C:/Users/mehna/Documents/MPlab projects/Timer Based Digital Stopwatch.X/_build/Timer Based Digital Stopwatch/default/CMakeFiles/rebuild_cache.dir
